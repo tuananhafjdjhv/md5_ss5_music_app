@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ứng dụng nghe nhạc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        input[type="file"], input[type="text"], input[type="submit"] {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        audio {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>Ứng dụng nghe nhạc</h1>
+
+<h2>Tải lên nhạc</h2>
+<form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="musicFile">
+    <input type="submit" value="Tải lên">
+</form>
+
+<h2>Danh sách bài nhạc</h2>
+<ul id="songList">
+    <!-- Danh sách các bài hát sẽ được hiển thị ở đây -->
+</ul>
+
+<h2>Cập nhật thông tin bài hát</h2>
+<form id="updateForm" th:action="/save" th:object="${audio}"
+      method="POST" novalidate="novalidate" enctype="multipart/form-data">
+    <label for="songId">ID bài hát:</label>
+    <input type="number" id="songId" name="songId" required th:field="*{musicName}">
+    <br>
+    <label for="songTitle">Tên bài hát:</label>
+    <input type="text" id="songTitle" name="songTitle" required th:field="*{name}">
+    <br>
+    <label for="songArtist">Nghệ sĩ:</label>
+    <input type="text" id="songArtist" name="songArtist" required th:field="*{name}">
+    <br>
+    <input type="submit" value="Update">
+</form>
+
+<h2>Nghe nhạc</h2>
+<audio id="audioPlayer" controls>
+    <!-- Đường dẫn đến file nhạc sẽ được đặt ở đây -->
+</audio>
+
+<h2>Xóa bài hát</h2>
+<form id="deleteForm">
+    <label for="deleteSongId">ID bài hát:</label>
+    <input type="number" id="deleteSongId" name="deleteSongId" required>
+    <br>
+    <input type="submit" value="Xóa">
+</form>
+</body>
+</html>
+
